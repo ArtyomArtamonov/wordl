@@ -7,6 +7,8 @@ import (
 	"github.com/buger/goterm"
 )
 
+const NUM_OF_GUESSES = 6
+
 const (
 	HitNotHit = iota
 	HitInWord
@@ -23,7 +25,7 @@ type Field struct {
 
 func NewEmptyField() *Field {
 	var res []string
-	for i := 0; i < 5; i++ {
+	for i := 0; i < NUM_OF_GUESSES; i++ {
 		res = append(res, "     ")
 	}
 	return &Field{

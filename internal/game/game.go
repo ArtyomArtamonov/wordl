@@ -25,7 +25,7 @@ func NewGame(field *Field, std *bufio.Reader, w *Wordlist) *Game {
 func (g *Game) Play(word string) {
 	fmt.Print("Guess 5-letter word\n")
 	field := NewEmptyField()
-	guessesLeft := 5
+	guessesLeft := NUM_OF_GUESSES
 
 	field.renderWindow(word)
 	for {
@@ -34,7 +34,7 @@ func (g *Game) Play(word string) {
 			util.PrintStats(7, "You lost. The word was %s\n", word)
 			break
 		}
-		util.PrintStats(2, "Guesses left: %d/5\n", guessesLeft)
+		util.PrintStats(2, "Guesses left: %d/%d\n", guessesLeft, NUM_OF_GUESSES)
 		util.ClearInputLine()
 		fmt.Print("Your guess: ")
 

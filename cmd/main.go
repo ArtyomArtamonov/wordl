@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"time"
 
 	// "math/rand"
 
@@ -20,6 +21,7 @@ const FILENAME = "../english-nouns.txt"
 var words []string
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	bytes, err := ioutil.ReadFile(FILENAME)
 	util.FatalOnError(err)
 

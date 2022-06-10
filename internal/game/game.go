@@ -3,9 +3,7 @@ package game
 import (
 	"bufio"
 	"fmt"
-	"math/rand"
 	"strings"
-	"time"
 
 	"github.com/ArtyomArtamonov/wordl/internal/util"
 )
@@ -25,23 +23,23 @@ func NewGame(field *Field, std *bufio.Reader, w *Wordlist) *Game {
 }
 
 func (g *Game) Play(word string) {
-	rand.Seed(time.Now().UnixNano())
-
 	fmt.Print("Guess 5-letter word\n")
 	field := NewEmptyField()
-	// unusedLetters := "abcdefghijklmnopqrstuvwxyz"
 	guessesLeft := 5
 
 	field.renderWindow(word)
 	for {
+		// util.PrintStats(8, "The word is %s\n", word) // Debug
 		if guessesLeft == 0 {
-			fmt.Printf("You lost. The word was %s\n", word)
+			util.PrintStats(7, "You lost. The word was %s\n", word)
 			break
 		}
 		util.PrintStats(2, "Guesses left: %d/5\n", guessesLeft)
+		util.ClearInputLine()
+		fmt.Print("Your guess: ")
+
 		var guess string
 
-		fmt.Print("Your guess: ")
 		var err error
 		guess, err = g.std.ReadString('\n')
 		util.FatalOnError(err)
@@ -57,7 +55,7 @@ func (g *Game) Play(word string) {
 
 		field.renderWindow(word)
 		if word == guess {
-			fmt.Println("You won! The word is " + word)
+			util.PrintStats(7, "You won! The word is " + word)
 			break
 		}
 	}
